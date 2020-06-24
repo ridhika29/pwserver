@@ -5,10 +5,10 @@ var bodyParser = require('body-parser');
 var multer = require('multer')
 const { Pool, Client } = require("pg");
 const pool = new Pool({
-   host: 'localhost',
-  user: 'postgres',
-  password : 'test',
-  database: 'contacts'
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
  
 });
 
@@ -119,6 +119,6 @@ app.post('/signin',(req,res)=>{
   //console.log(res);
 })
 
-app.listen(3002,()=>{
-	console.log(`app is running on server port : 3002`);
+app.listen(process.env.PORT,()=>{
+  console.log(`app is running on server port : ${process.env.PORT}`);
 });
